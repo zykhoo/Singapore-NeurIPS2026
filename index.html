@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Singapore at NeurIPS 2026</title>
+<meta name="description" content="Accepted NeurIPS 2026 papers with authors from Singapore institutions, with status, authors and links.">
+<meta property="og:title" content="Singapore at NeurIPS 2026">
+<meta property="og:description" content="Accepted NeurIPS 2026 papers with authors from Singapore institutions.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='4' width='5' height='24' rx='2.5' fill='%23B35F00'/%3E%3Crect x='8.5' y='4' width='5' height='24' rx='2.5' fill='%23D42E12'/%3E%3Crect x='14' y='4' width='5' height='24' rx='2.5' fill='%239900AA'/%3E%3Crect x='19.5' y='4' width='5' height='24' rx='2.5' fill='%23005EC4'/%3E%3Crect x='25' y='4' width='5' height='24' rx='2.5' fill='%2300853E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBFBFC;
+    --surface: #FFFFFF;
+    --ink: #1C2230;
+    --muted: #5D6675;
+    --rule: #E3E6EB;
+    --focus: #005EC4;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171D;
+      --surface: #1B1F27;
+      --ink: #E8EAEE;
+      --muted: #A3ABB8;
+      --rule: #2C313B;
+      --focus: #6FA8FF;
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Overpass", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  .wrap { max-width: 56rem; margin: 0 auto; padding: 0 1.25rem; }
+
+  /* ---------- header ---------- */
+  header.wrap { padding-top: 3.5rem; padding-bottom: 1.75rem; }
+  h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+  .lede { margin: 0; max-width: 40rem; font-size: 1.125rem; color: var(--muted); }
+  .lede strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- institution code badges ---------- */
+  .code {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 2.6em; height: 1.6em; padding: 0.12em 0.45em 0;
+    border-radius: 0.35em;
+    background: var(--c); color: var(--on-c, #fff);
+    font-size: 0.78rem; font-weight: 800; letter-spacing: 0.01em; line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* ---------- controls ---------- */
+  .controls { padding: 0.25rem 0 1rem; border-bottom: 1px solid var(--rule); }
+  .insts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 0.85rem; padding: 0; list-style: none; }
+  .inst {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    padding: 0.4rem 0.75rem 0.4rem 0.45rem;
+    border: 1.5px solid var(--rule); border-radius: 0.6rem;
+    background: var(--surface); color: var(--ink);
+    font: inherit; font-size: 0.92rem; cursor: pointer;
+  }
+  .inst:hover { border-color: var(--c); }
+  .inst[aria-pressed="true"] {
+    border-color: var(--c);
+    background: color-mix(in srgb, var(--c) 13%, var(--surface));
+  }
+  .inst .n { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .inst[aria-pressed="true"] .n { color: var(--ink); }
+  @media (max-width: 560px) { .inst .name { display: none; } }
+
+  .row2 { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+  .status { display: inline-flex; border: 1.5px solid var(--rule); border-radius: 0.6rem; overflow: hidden; }
+  .status button {
+    padding: 0.42rem 0.8rem; border: 0; background: var(--surface); color: var(--ink);
+    font: inherit; font-size: 0.92rem; white-space: nowrap; cursor: pointer;
+  }
+  @media (max-width: 560px) {
+    .status { width: 100%; }
+    .status button { flex: 1; padding: 0.42rem 0.4rem; }
+  }
+  .status button + button { border-left: 1.5px solid var(--rule); }
+  .status button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .status .n { opacity: 0.7; font-variant-numeric: tabular-nums; }
+  .search {
+    flex: 1 1 16rem; min-width: 0;
+    padding: 0.48rem 0.8rem; border: 1.5px solid var(--rule); border-radius: 0.6rem;
+    background: var(--surface); color: var(--ink); font: inherit; font-size: 0.95rem;
+  }
+  .search:focus-visible { outline-offset: 0; }
+  .summary { display: flex; gap: 1rem; align-items: baseline; margin-top: 0.85rem; color: var(--muted); font-size: 0.92rem; }
+  .clear { padding: 0; border: 0; background: none; color: var(--ink); font: inherit; font-size: 0.92rem; text-decoration: underline; cursor: pointer; }
+
+  /* ---------- paper list ---------- */
+  .papers { list-style: none; margin: 0; padding: 0; }
+  .paper { padding: 1.35rem 0 1.4rem; border-bottom: 1px solid var(--rule); }
+  .paper[hidden] { display: none; }
+  .title { margin: 0 0 0.45rem; max-width: 44rem; font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+  .title a { text-decoration: none; }
+  .title a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+  .math { font-family: "Times New Roman", Times, serif; font-style: italic; font-size: 1.08em; }
+  .math sup, .math sub { font-size: 0.7em; }
+
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin-bottom: 0.55rem; font-size: 0.9rem; color: var(--muted); }
+  .tag { display: inline-flex; align-items: center; height: 1.6em; padding: 0.12em 0.5em 0; border-radius: 0.35em; font-size: 0.78rem; font-weight: 800; line-height: 1; }
+  .tag.oral { background: var(--ink); color: var(--bg); }
+  .tag.spotlight { box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); }
+  .tag.poster { box-shadow: inset 0 0 0 1.5px var(--rule); color: var(--muted); font-weight: 700; }
+  .codes { display: inline-flex; gap: 0.3rem; }
+  .when { margin: -0.2rem 0 0.55rem; font-size: 0.9rem; color: var(--muted); }
+
+  .authors { margin: 0 0 0.6rem; max-width: 46rem; font-size: 0.95rem; color: var(--muted); }
+  .authors .sg { color: var(--ink); font-weight: 600; }
+  .authors .sg .code { font-size: 0.66rem; height: 1.5em; min-width: 0; margin-left: 0.25em; vertical-align: 0.08em; }
+  .authors .gap { padding: 0 0.15em; }
+  .nobr { white-space: nowrap; }
+  .more { padding: 0; border: 0; background: none; color: var(--ink); font: inherit; font-size: 0.9rem; text-decoration: underline; cursor: pointer; }
+
+  .links { display: flex; gap: 1.25rem; font-size: 0.92rem; font-weight: 600; }
+  .links a { text-decoration: underline; text-decoration-color: var(--rule); text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+  .links a:hover { text-decoration-color: currentColor; }
+
+  .empty, .error { padding: 3rem 0; color: var(--muted); }
+  .error { color: var(--ink); }
+  .error code { font-size: 0.9em; }
+
+  footer.wrap { padding-top: 2.5rem; padding-bottom: 4rem; color: var(--muted); font-size: 0.88rem; }
+  footer p { max-width: 42rem; margin: 0 0 0.5rem; }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <h1 id="site-title">Singapore at NeurIPS 2026</h1>
+  <p class="lede" id="lede">Loading papers…</p>
+</header>
+
+<section class="controls" aria-label="Filter papers">
+  <div class="wrap">
+    <ul class="insts" id="insts" aria-label="Institutions"></ul>
+    <div class="row2">
+      <div class="status" id="status" role="group" aria-label="Presentation type"></div>
+      <label class="visually-hidden" for="q">Search</label>
+      <input class="search" id="q" type="search" placeholder="Search titles, authors or sessions" autocomplete="off">
+    </div>
+    <div class="summary">
+      <span id="count" aria-live="polite"></span>
+      <button class="clear" id="clear" type="button" hidden>Clear filters</button>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <ul class="papers" id="papers"></ul>
+  <div class="empty" id="empty" hidden>
+    No papers match these filters. <button class="clear" type="button" data-clear>Clear filters</button>
+  </div>
+</main>
+
+<footer class="wrap">
+  <p id="method"></p>
+  <p id="updated"></p>
+</footer>
+
+<script>
+// ===================== Settings you might want to change =====================
+const SITE = {
+  papersCsv: "matched_papers.csv",       // from filter_by_affiliation.ipynb
+  authorsCsv: "matched_authors.csv",
+  updated: "27 November 2026",           // shown in the footer
+  // Short code and colour per institution. Institutions not listed here get a code
+  // made from their initials and a colour from the spare list below.
+  institutions: {
+    "National University of Singapore": { code: "NUS", color: "#B35F00" },
+    "Nanyang Technological University": { code: "NTU", color: "#D42E12" },
+    "A*STAR": { code: "A*STAR", color: "#9900AA" },
+    "Singapore Management University": { code: "SMU", color: "#005EC4" },
+    "Singapore University of Technology and Design": { code: "SUTD", color: "#00853E" },
+  },
+  spareColors: ["#9D5B25", "#748477", "#0A8E9E", "#C2185B", "#5D6B00"],
+  collapseAuthorsOver: 12,               // longer author lists start collapsed
+};
+// =============================================================================
+
+const STATUS_ORDER = { oral: 0, spotlight: 1, poster: 2 };
+const STATUS_LABEL = { oral: "Oral", spotlight: "Spotlight", poster: "Poster" };
+const TRACK_LABEL = { "Main": "Main track", "Evaluations & Datasets": "Evaluations & Datasets track", "Position": "Position paper track" };
+const VIA_LABEL = {
+  "current + conference": "listed for this paper, and current affiliation",
+  "conference": "affiliation listed for this paper",
+  "current": "current affiliation",
+};
+
+// ---------- small helpers ----------
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fold = (s) => String(s ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+function parseCSV(text) {
+  // RFC 4180: quoted fields may contain commas, quotes ("") and newlines
+  const rows = []; let row = [], field = "", i = 0, quoted = false;
+  text = text.replace(/^\uFEFF/, "");
+  while (i < text.length) {
+    const ch = text[i];
+    if (quoted) {
+      if (ch === '"') {
+        if (text[i + 1] === '"') { field += '"'; i += 2; continue; }
+        quoted = false; i++; continue;
+      }
+      field += ch; i++; continue;
+    }
+    if (ch === '"') { quoted = true; i++; continue; }
+    if (ch === ",") { row.push(field); field = ""; i++; continue; }
+    if (ch === "\r") { i++; continue; }
+    if (ch === "\n") { row.push(field); rows.push(row); row = []; field = ""; i++; continue; }
+    field += ch; i++;
+  }
+  if (field !== "" || row.length) { row.push(field); rows.push(row); }
+  const [head, ...body] = rows;
+  return body.filter((r) => r.length > 1 || r[0] !== "").map((r) => Object.fromEntries(head.map((h, k) => [h.trim(), r[k] ?? ""])));
+}
+
+// Inline LaTeX in titles, e.g. "$\delta$-Mem" or "COOP$^2$"
+const TEX = {
+  alpha: "α", beta: "β", gamma: "γ", delta: "δ", epsilon: "ϵ", varepsilon: "ε", zeta: "ζ", eta: "η", theta: "θ",
+  kappa: "κ", lambda: "λ", mu: "μ", nu: "ν", xi: "ξ", pi: "π", rho: "ρ", sigma: "σ", tau: "τ", phi: "φ",
+  varphi: "φ", chi: "χ", psi: "ψ", omega: "ω", Gamma: "Γ", Delta: "Δ", Theta: "Θ", Lambda: "Λ", Pi: "Π",
+  Sigma: "Σ", Phi: "Φ", Psi: "Ψ", Omega: "Ω", ell: "ℓ", infty: "∞", times: "×", cdot: "·", leq: "≤",
+  geq: "≥", le: "≤", ge: "≥", to: "→", rightarrow: "→", approx: "≈", sim: "∼", pm: "±", star: "⋆", nabla: "∇",
+};
+function texInner(s, html) {
+  s = s.replace(/\\(mathcal|mathbf|mathrm|mathbb|text|textbf|operatorname|boldsymbol)\s*/g, "");
+  s = s.replace(/\\([A-Za-z]+)/g, (m, name) => TEX[name] ?? name);
+  if (!html) return s.replace(/[{}^_]/g, "");
+  return esc(s)
+    .replace(/\^\{([^}]*)\}|\^(.)/g, (m, a, b) => `<sup>${a ?? b}</sup>`)
+    .replace(/_\{([^}]*)\}|_(.)/g, (m, a, b) => `<sub>${a ?? b}</sub>`)
+    .replace(/[{}]/g, "");
+}
+function titleHtml(t) {
+  return t.split(/(\$[^$]+\$)/g).map((part) =>
+    /^\$[^$]+\$$/.test(part) ? `<span class="math">${texInner(part.slice(1, -1), true)}</span>` : esc(part)).join("");
+}
+const titleText = (t) => t.replace(/\$([^$]+)\$/g, (m, inner) => texInner(inner, false));
+
+function initials(name) {
+  const words = name.split(/\s+/).filter((w) => !/^(of|and|the|for|de|in|at)$/i.test(w));
+  return words.length === 1 ? words[0] : words.map((w) => w[0]).join("").toUpperCase();
+}
+function textColorOn(hex) {
+  const [r, g, b] = [1, 3, 5].map((k) => parseInt(hex.slice(k, k + 2), 16) / 255)
+    .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return (1.05 / (L + 0.05)) >= 4.5 ? "#FFFFFF" : "#1C2230";      // white if it passes AA, else dark ink
+}
+function fmtTime(start, end) {
+  // "Tue 2026-12-08 17:00" -> "Tue 8 Dec, 17:00–20:00"
+  const m = /^(\w{3}) (\d{4})-(\d{2})-(\d{2}) (\d{2}:\d{2})$/.exec(start || "");
+  if (!m) return "";
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const e = /(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2})$/.exec(end || "");
+  const day = `${m[1]} ${+m[4]} ${months[+m[3] - 1]}`;
+  return e && e[1] === `${m[2]}-${m[3]}-${m[4]}` ? `${day}, ${m[5]}–${e[2]}` : `${day}, ${m[5]}`;
+}
+
+// ---------- state ----------
+let PAPERS = [], INSTS = [], INST_BY_NAME = new Map();
+const state = { insts: new Set(), status: "", q: "" };
+
+function codeBadge(inst, title) {
+  return `<span class="code" style="--c:${inst.color};--on-c:${inst.onColor}"${title ? ` title="${esc(title)}"` : ""}>${esc(inst.code)}</span>`;
+}
+
+function authorsHtml(p, expanded) {
+  // Long lists start collapsed: the first few names plus every Singapore author, with "…" for the gaps
+  const n = p.authors.length, limit = SITE.collapseAuthorsOver;
+  const collapsed = !expanded && n > limit;
+  const idx = p.authors.map((_, i) => i).filter((i) => !collapsed || i < limit - 4 || p.sg.has(i + 1));
+  let html = "", prev = -1;
+  for (const i of idx) {
+    if (i - prev > 1) html += ` <span class="gap">…</span> `;
+    else if (prev >= 0) html += ", ";
+    const sg = p.sg.get(i + 1);
+    if (sg) {
+      // keep the badges on the same line as the author's last name
+      const name = p.authors[i], cut = name.lastIndexOf(" ") + 1;
+      const badges = sg.map((x) => codeBadge(x.inst, `${x.inst.name} (${VIA_LABEL[x.via] || x.via})`)).join("");
+      html += `<span class="sg">${esc(name.slice(0, cut))}<span class="nobr">${esc(name.slice(cut))}${badges}</span></span>`;
+    } else {
+      html += esc(p.authors[i]);
+    }
+    prev = i;
+  }
+  if (collapsed && prev < n - 1) html += ` <span class="gap">…</span>`;
+  if (n > limit) {
+    html += ` <button class="more" type="button" data-more="${esc(p.id)}" aria-expanded="${expanded}">${expanded ? "Show fewer" : `Show all ${n} authors`}</button>`;
+  }
+  return html.trim();
+}
+
+function paperHtml(p) {
+  const where = [p.session, p.board && `board ${p.board}`].filter(Boolean).join(", ");
+  const when = fmtTime(p.start, p.end);
+  return `
+    <h2 class="title"><a href="${esc(p.neurips)}" target="_blank" rel="noopener">${p.titleHtml}</a></h2>
+    <div class="meta">
+      <span class="tag ${esc(p.status)}">${esc(STATUS_LABEL[p.status] || p.status)}</span>
+      <span class="codes">${p.insts.map((x) => codeBadge(x, x.name)).join("")}</span>
+      <span>${esc(TRACK_LABEL[p.track] || p.track)}</span>
+    </div>
+    ${where || when ? `<p class="when">${esc([where, when && `${when} local time`].filter(Boolean).join(", "))}</p>` : ""}
+    <p class="authors" data-authors="${esc(p.id)}">${authorsHtml(p, false)}</p>
+    <div class="links">
+      ${p.openreview ? `<a href="${esc(p.openreview)}" target="_blank" rel="noopener">OpenReview</a>` : ""}
+      ${p.neurips ? `<a href="${esc(p.neurips)}" target="_blank" rel="noopener">NeurIPS page</a>` : ""}
+    </div>`;
+}
+
+// ---------- filtering ----------
+function matches(p, ignore) {
+  if (ignore !== "insts" && state.insts.size && !p.insts.some((x) => state.insts.has(x.code))) return false;
+  if (ignore !== "status" && state.status && p.status !== state.status) return false;
+  if (state.q) {
+    for (const word of fold(state.q).split(/\s+/).filter(Boolean)) if (!p.haystack.includes(word)) return false;
+  }
+  return true;
+}
+
+function render() {
+  let shown = 0;
+  for (const p of PAPERS) {
+    const ok = matches(p);
+    p.el.hidden = !ok;
+    if (ok) shown++;
+  }
+  // counts for each option, given the other active filters
+  for (const inst of INSTS) {
+    const n = PAPERS.filter((p) => matches(p, "insts") && p.insts.includes(inst)).length;
+    inst.btn.querySelector(".n").textContent = n;
+    inst.btn.setAttribute("aria-pressed", state.insts.has(inst.code));
+  }
+  for (const btn of document.querySelectorAll("#status button")) {
+    const s = btn.dataset.status;
+    btn.querySelector(".n").textContent = PAPERS.filter((p) => matches(p, "status") && (!s || p.status === s)).length;
+    btn.setAttribute("aria-pressed", state.status === s);
+  }
+  const active = state.insts.size || state.status || state.q;
+  $("#count").textContent = active ? `Showing ${shown} of ${PAPERS.length} papers` : `${PAPERS.length} papers`;
+  $("#clear").hidden = !active;
+  $("#empty").hidden = shown > 0;
+
+  const params = new URLSearchParams();
+  if (state.insts.size) params.set("inst", [...state.insts].join(","));
+  if (state.status) params.set("status", state.status);
+  if (state.q) params.set("q", state.q);
+  const qs = params.toString();
+  history.replaceState(null, "", qs ? `?${qs}` : location.pathname);
+}
+
+function clearFilters() {
+  state.insts.clear(); state.status = ""; state.q = "";
+  $("#q").value = "";
+  render();
+}
+
+// ---------- load ----------
+async function fetchText(url) {
+  const r = await fetch(url, { cache: "no-cache" });
+  if (!r.ok) throw new Error(`${url} returned HTTP ${r.status}`);
+  return r.text();
+}
+
+async function main() {
+  let paperRows, authorRows;
+  try {
+    [paperRows, authorRows] = (await Promise.all([fetchText(SITE.papersCsv), fetchText(SITE.authorsCsv)])).map(parseCSV);
+  } catch (err) {
+    $("#lede").textContent = "";
+    $("main").innerHTML = `<div class="error"><p><strong>The paper list couldn't be loaded.</strong> ${esc(err.message)}.</p>
+      <p>Check that <code>${esc(SITE.papersCsv)}</code> and <code>${esc(SITE.authorsCsv)}</code> sit next to <code>index.html</code>.
+      To preview on your own computer, open a terminal in this folder, run <code>python -m http.server</code>, and visit
+      <code>http://localhost:8000</code>; browsers block pages opened straight from disk from reading files.</p></div>`;
+    return;
+  }
+
+  // institutions, most papers first
+  const instPapers = new Map();
+  for (const a of authorRows) {
+    if (!instPapers.has(a.organization)) instPapers.set(a.organization, new Set());
+    instPapers.get(a.organization).add(a.paper_id);
+  }
+  let spare = 0;
+  INSTS = [...instPapers.keys()].sort((x, y) => instPapers.get(y).size - instPapers.get(x).size || x.localeCompare(y)).map((name) => {
+    const cfg = SITE.institutions[name] || {};
+    const color = cfg.color || SITE.spareColors[spare++ % SITE.spareColors.length];
+    return { name, code: cfg.code || initials(name), color, onColor: textColorOn(color) };
+  });
+  INST_BY_NAME = new Map(INSTS.map((x) => [x.name, x]));
+
+  // Singapore authors per paper: author position -> [{inst, via}]
+  const sgByPaper = new Map();
+  for (const a of authorRows) {
+    if (!sgByPaper.has(a.paper_id)) sgByPaper.set(a.paper_id, new Map());
+    const m = sgByPaper.get(a.paper_id), pos = +a.author_order;
+    if (!m.has(pos)) m.set(pos, []);
+    m.get(pos).push({ inst: INST_BY_NAME.get(a.organization), via: a.matched_via });
+  }
+
+  PAPERS = paperRows.map((r) => {
+    const sg = sgByPaper.get(r.paper_id) || new Map();
+    const insts = INSTS.filter((x) => [...sg.values()].some((list) => list.some((e) => e.inst === x)));
+    const authors = (r.all_authors || "").split(/\s*;\s*/).filter(Boolean);
+    const plain = titleText(r.title);
+    return {
+      id: r.paper_id, title: r.title, titleHtml: titleHtml(r.title), plain,
+      status: (r.status || "").toLowerCase(), track: r.track, location: r.location,
+      session: r.poster_session, board: r.poster_number, start: r.poster_start_local, end: r.poster_end_local,
+      neurips: r.neurips_url, openreview: r.openreview_url, authors, sg, insts,
+      haystack: fold([plain, authors.join(" "), r.poster_session, r.location, r.track, insts.map((x) => `${x.code} ${x.name}`).join(" ")].join(" ")),
+    };
+  });
+  PAPERS.sort((a, b) => (STATUS_ORDER[a.status] ?? 9) - (STATUS_ORDER[b.status] ?? 9)
+    || a.plain.replace(/^[^A-Za-z0-9]+/, "").localeCompare(b.plain.replace(/^[^A-Za-z0-9]+/, ""), "en", { sensitivity: "base" }));
+
+  // header text
+  const nInst = INSTS.length;
+  $("#lede").innerHTML = `<strong>${PAPERS.length} accepted papers</strong> with at least one author from ${nInst} Singapore institution${nInst === 1 ? "" : "s"}, across the Main, Evaluations &amp; Datasets and Position Paper tracks. Presented in Sydney, Atlanta and Paris in December 2026.`;
+  $("#method").textContent = "An author counts when their current affiliation, or the affiliation they listed for this paper, is one of these institutions. Hover over an institution code next to an author to see which.";
+  $("#updated").textContent = `Data from neurips.cc and OpenReview, collected ${SITE.updated}.`;
+
+  // institution toggles
+  const instList = $("#insts");
+  for (const inst of INSTS) {
+    const li = document.createElement("li");
+    li.innerHTML = `<button class="inst" type="button" style="--c:${inst.color}" aria-pressed="false" aria-label="${esc(inst.name)}">
+      ${codeBadge(inst)}<span class="name">${esc(inst.name)}</span><span class="n"></span></button>`;
+    inst.btn = li.firstElementChild;
+    inst.btn.addEventListener("click", () => {
+      state.insts.has(inst.code) ? state.insts.delete(inst.code) : state.insts.add(inst.code);
+      render();
+    });
+    instList.append(li);
+  }
+
+  // status toggles
+  const statusBox = $("#status");
+  for (const [s, label] of [["", "All"], ["oral", "Oral"], ["spotlight", "Spotlight"], ["poster", "Poster"]]) {
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.status = s;
+    b.innerHTML = `${label} <span class="n"></span>`;
+    b.addEventListener("click", () => { state.status = s; render(); });
+    statusBox.append(b);
+  }
+
+  // paper rows
+  const list = $("#papers"), frag = document.createDocumentFragment();
+  for (const p of PAPERS) {
+    const li = document.createElement("li");
+    li.className = "paper"; li.id = `paper-${p.id}`;
+    li.innerHTML = paperHtml(p);
+    p.el = li; frag.append(li);
+  }
+  list.append(frag);
+  const byId = new Map(PAPERS.map((p) => [p.id, p]));
+  list.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-more]");
+    if (!btn) return;
+    const p = byId.get(btn.dataset.more), expand = btn.getAttribute("aria-expanded") !== "true";
+    const box = p.el.querySelector("[data-authors]");
+    box.innerHTML = authorsHtml(p, expand);
+    box.querySelector("[data-more]").focus();
+  });
+
+  // search, clear, and filters from the address bar (e.g. ?inst=NUS,NTU&status=oral)
+  let timer;
+  $("#q").addEventListener("input", (e) => { clearTimeout(timer); timer = setTimeout(() => { state.q = e.target.value.trim(); render(); }, 120); });
+  document.querySelectorAll("#clear, [data-clear]").forEach((b) => b.addEventListener("click", clearFilters));
+  const params = new URLSearchParams(location.search);
+  const codes = new Set(INSTS.map((x) => x.code));
+  for (const c of (params.get("inst") || "").split(",")) if (codes.has(c)) state.insts.add(c);
+  if (STATUS_ORDER[params.get("status")] !== undefined) state.status = params.get("status");
+  if (params.get("q")) { state.q = params.get("q"); $("#q").value = state.q; }
+  render();
+}
+
+main();
+</script>
+</body>
+</html>
