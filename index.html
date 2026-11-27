@@ -588,7 +588,7 @@ async function main() {
 
   // header text
   const nInst = INSTS.length;
-  $("#lede").innerHTML = `<strong>${PAPERS.length} accepted papers</strong> with at least one author from ${nInst} Singapore institution${nInst === 1 ? "" : "s"}, across the Main, Evaluations &amp; Datasets and Position Paper tracks. Presented in Sydney, Atlanta and Paris in December 2026.`;
+  $("#lede").innerHTML = `<strong>${PAPERS.length} accepted papers</strong> with at least one author from ${nInst} Singapore institution${nInst === 1 ? "" : "s"}, across the Main, Evaluations &amp; Datasets and Position Paper tracks. Presented in Sydney, Atlanta and Paris in December 2026. Source: <a href="https://openreview.net/group?id=NeurIPS.cc/2026" target="_blank" rel="noopener noreferrer">OpenReview</a>.`;
   $("#method").textContent = "An author counts when their current affiliation, or the affiliation they listed for this paper, is one of these institutions. Hover over an institution code next to an author to see which.";
   $("#updated").textContent = `Data from neurips.cc and OpenReview, collected ${SITE.updated}.`;
 
